@@ -30,8 +30,6 @@ sys-apps/file python
 # emerging equo and expect
 USE="ncurses" emerge -j -vt equo --autounmask-write || exit 1
 emerge -j expect || exit 1
-emerge app-portage/gentoolkit
-revdep-rebuild
 
 # Enforce choosing only python2.7 for now, cleaning others
 eselect python set python2.7
