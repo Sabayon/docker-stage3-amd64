@@ -2,6 +2,9 @@ FROM sabayon/locales-amd64
 
 MAINTAINER mudler <mudler@sabayonlinux.org>
 
+# Set locales to en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+
 # Upgrading portage and installing necessary packages
 RUN rm -rf '/usr/portage/metadata/timestamp.chk' && \
 	 emerge-webrsync && \
