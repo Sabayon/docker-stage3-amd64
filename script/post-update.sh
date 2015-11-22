@@ -18,6 +18,8 @@ echo -5 | equo conf update
 # Remove compilation tools
 equo rm --nodeps --force-system automake bison yacc gcc localepurge
 
+equo i base-gcc
+
 # Writing package list file
 equo q list installed -qv > /etc/sabayon-pkglist
 

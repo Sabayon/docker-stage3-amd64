@@ -26,6 +26,17 @@ echo "dev-lang/python sqlite
 sys-apps/file python
 " > /etc/portage/package.use/00-sabayon.package.use
 
+echo "y" | layman -a sabayon-distro
+
+echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
+
+eselect profile set default/linux/amd64/13.0
+
+# Sad to face this issue still after 1.5yr, see https://bugs.gentoo.org/show_bug.cgi?id=504118
+ln -s /lib64/gentoo/functions.sh /etc/init.d/functions.sh
+gcc-config -c
+gcc-config 1
+. /etc/profile
 
 # emerging equo and expect
 USE="ncurses" emerge -j -vt equo --autounmask-write || exit 1
@@ -44,3 +55,6 @@ echo "nameserver 8.8.8.8" > /etc/resolv.conf
 chsh -s /bin/bash
 
 rm -rf /etc/make.profile
+
+# removing workaround, it is fixed in Entropy
+rm -rf /etc/init.d/functions.sh
