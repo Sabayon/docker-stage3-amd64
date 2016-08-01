@@ -5,7 +5,7 @@ MAINTAINER mudler <mudler@sabayonlinux.org>
 # Set locales to en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
-COPY locale.gen /etc/locale.gen
+RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
 RUN locale-gen || true
 
 # Upgrading portage and installing necessary packages
