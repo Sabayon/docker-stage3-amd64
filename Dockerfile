@@ -1,4 +1,4 @@
-FROM sabayon/gentoo-stage3-base-amd64
+FROM sabayon/gentoo-stage3-base-amd64:latest
 
 MAINTAINER mudler <mudler@sabayonlinux.org>
 
@@ -11,7 +11,7 @@ RUN locale-gen || true
 # Upgrading portage and installing necessary packages
 RUN rm -rf '/usr/portage/metadata/timestamp.chk' && \
 	 emerge-webrsync && \
-	layman -S && layman -a sabayon
+	layman -S && echo "y" | layman -a sabayon
 
 # Configure the sabayon box, installing equo setting up locales
 ADD ./script/sabayon-configuration.sh /

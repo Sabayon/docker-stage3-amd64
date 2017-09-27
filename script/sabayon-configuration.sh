@@ -24,7 +24,12 @@ echo "dev-lang/python sqlite
 sys-apps/file python
 " > /etc/portage/package.use/00-sabayon.package.use
 
+
 echo "y" | layman -a sabayon-distro
+
+echo "conf_type : make.conf" >>  /etc/layman/layman.cfg
+
+layman-updater -R
 
 echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
 
@@ -37,7 +42,7 @@ gcc-config 1
 . /etc/profile
 
 # emerging equo and expect
-USE="ncurses" emerge -j -vt equo --autounmask-write || exit 1
+USE="ncurses" emerge -j -vt equo app-admin/localepurge --autounmask-write || exit 1
 emerge -j expect || exit 1
 
 # Enforce choosing only python2.7 for now, cleaning others
