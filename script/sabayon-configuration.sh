@@ -27,16 +27,15 @@ sys-apps/file python
 
 echo "y" | layman -a sabayon-distro
 
-echo "conf_type : make.conf" >>  /etc/layman/layman.cfg
+sed -i 's/repos\.conf/make.conf/' /etc/layman/layman.cfg
 
 layman-updater -R
 
-echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
+echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf 
 
-eselect profile set default/linux/amd64/13.0
+# Specifying a gentoo profile
+eselect profile set 16
 
-# Sad to face this issue still after 1.5yr, see https://bugs.gentoo.org/show_bug.cgi?id=504118
-ln -s /lib64/gentoo/functions.sh /etc/init.d/functions.sh
 gcc-config -c
 gcc-config 1
 . /etc/profile
@@ -47,9 +46,6 @@ emerge -j expect || exit 1
 
 # Enforce choosing only python2.7 for now, cleaning others
 eselect python set python2.7
-
-# Specifying a gentoo profile
-eselect profile set default/linux/amd64/13.0/desktop
 
 # default for next stage(s)
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
