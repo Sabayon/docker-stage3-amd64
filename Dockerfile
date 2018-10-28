@@ -1,4 +1,4 @@
-FROM sabayon/gentoo-stage3-base-amd64:latest
+FROM gentoo/stage3-amd64:latest
 
 MAINTAINER mudler <mudler@sabayonlinux.org>
 
