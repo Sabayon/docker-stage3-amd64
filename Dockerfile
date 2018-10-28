@@ -10,9 +10,7 @@ RUN locale-gen || true
 
 # Upgrading portage and installing necessary packages
 RUN rm -rf '/usr/portage/metadata/timestamp.chk' && \
-	 emerge-webrsync && \
-	layman -S && echo "y" | layman -a sabayon
-
+	 emerge-webrsync
 # Configure the sabayon box, installing equo setting up locales
 ADD ./script/sabayon-configuration.sh /
 RUN /bin/bash /sabayon-configuration.sh && rm -rf /sabayon-configuration.sh

@@ -24,7 +24,9 @@ echo "dev-lang/python sqlite
 sys-apps/file python
 " > /etc/portage/package.use/00-sabayon.package.use
 
+emerge layman
 
+layman -S && echo "y" | layman -a sabayon
 echo "y" | layman -a sabayon-distro
 
 sed -i 's/repos\.conf/make.conf/' /etc/layman/layman.cfg
@@ -45,7 +47,7 @@ USE="ncurses" emerge -j -vt equo app-admin/localepurge --autounmask-write || exi
 emerge -j expect || exit 1
 
 # Enforce choosing only python2.7 for now, cleaning others
-eselect python set python2.7
+eselect python set python3.6
 
 # default for next stage(s)
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
