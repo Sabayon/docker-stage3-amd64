@@ -1,6 +1,6 @@
 FROM gentoo/stage3-amd64:latest
 
-MAINTAINER mudler <mudler@sabayonlinux.org>
+LABEL maintainer="mudler <mudler@sabayonlinux.org>"
 
 # Set locales to en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
@@ -8,6 +8,11 @@ ENV FEATURES="-sandbox -usersandbox -userpriv"
 
 RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen
 RUN locale-gen || true
+
+# Initialize repos.conf/gentoo.conf to avoid installation
+# of portage under /var/db/repos/gentoo
+ADD ./script/gentoo-configuration.sh /
+RUN /bin/bash /gentoo-configuration.sh && rm -rf /gentoo-configuration.sh
 
 # Upgrading portage and installing necessary packages
 RUN rm -rf '/usr/portage/metadata/timestamp.chk' && \
