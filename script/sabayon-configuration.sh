@@ -24,7 +24,13 @@ echo "dev-lang/python sqlite
 sys-apps/file python
 " > /etc/portage/package.use/00-sabayon.package.use
 
-emerge layman
+eselect profile list
+eselect profile set default/linux/amd64/17.0/systemd
+
+emerge layman -vt -j 3 || {
+  echo "Error on emerge layman"
+  exit 1
+}
 
 layman -S && echo "y" | layman -a sabayon
 echo "y" | layman -a sabayon-distro
@@ -43,8 +49,11 @@ gcc-config 1
 . /etc/profile
 
 # emerging equo and expect
-USE="ncurses" emerge -j -vt equo app-admin/localepurge --autounmask-write || exit 1
+USE="ncurses" emerge -j -vt equo --autounmask-write || exit 1
 emerge -j expect || exit 1
+
+# Remove sys-apps/openrc from gentoo stage3
+emerge --unmerge sys-apps/openrc
 
 # Enforce choosing only python2.7 for now, cleaning others
 eselect python set python3.6
